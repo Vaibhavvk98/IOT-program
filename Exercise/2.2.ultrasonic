@@ -1,0 +1,27 @@
+from gpiozero import MCP3008, DistanceSensor
+from gpiozero import LED
+from gpiozero import Button
+from datetime import datetime
+
+button = Button(2)
+led = LED(3)
+pot = MCP3008(4)
+ultrasonic = DistanceSensor(echo = 21, trigger = 20)
+file = open("/home/pi/Desktop/Sadik/Exercise/2.2.ultrasonic_log.txt", "w")
+
+while True:
+    if button.when_pressed:
+        didt = ultrasonic.distance * 100
+        spam = pot.value * 100
+        dist, spam = round(dist, 3), round(spam,3)
+        if dist <= spam:
+            led.on()
+            print(f"scaled spam : {spam}, dist : {dist}")
+            timestamp = date.now().strftime('%Y/%m/%d %HH %MM %SS')
+            date = f"{timestamp}--> " \
+                   f"distance : {dist} , spam : {spam}\n"
+            file.write(data)
+        else:
+            led.off()
+            print(f"Distance > spam!! scaled spam : {spam}, dist : {dist}")
+file.close()
